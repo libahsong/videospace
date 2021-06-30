@@ -1,0 +1,18 @@
+extends base
+include mixins/video
+
+block content 
+    form(method="GET").search__form
+        input(placeholder="Search by Title", name="keyword", type="text")
+        button
+            i.fas.fa-search
+    
+    div.video-grid
+       h3 Searching for :  #{keyword}
+       each video in videos
+            +video({
+              title : video.title,
+              owner : video.owner,
+              meta : video.meta,
+              videoFile : video.videoFile 
+            })
