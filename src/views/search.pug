@@ -9,10 +9,6 @@ block content
     
     div.video-grid
        h3 Searching for :  #{keyword}
-       each video in videos
-            +video({
-              title : video.title,
-              owner : video.owner,
-              meta : video.meta,
-              videoFile : video.videoFile 
-            })
+       if(videos)
+        each video in videos
+            +video(video)

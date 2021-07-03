@@ -1,14 +1,14 @@
 extends base
 
 block content 
-    form(method="POST").edit-profile__form
+    form(method="POST", enctype="multipart/form-data").edit-profile__form
         labe(for="avatar") Avatar 
-        input(type="file", id="avatar", name="avatar")
-        input(placeholder="Name", name="name", type="text", required)
-        input(placeholder="Email", name="email", type="email",required)
-        input(placeholder="Username", name="username", type="text",required)
-        input(placeholder="Location", name="location", type="text",required)
-        input(placeholder="Name", name="name", type="text")
+        input(type="file", id="avatar", name="avatar",accept="image/*")
+        input(placeholder="Name", name="name", type="text", required, value=loggedInUser.name)
+        input(placeholder="Email", name="email", type="email",required, value=loggedInUser.email)
+        input(placeholder="Username", name="username", type="text",required,value=loggedInUser.username)
+        input(placeholder="Location", name="location", type="text",required,value=loggedInUser.location)
         input(type="submit", vlaue="Update Profile")
-        .edit-profile__password 
-            a(href="change-password") Change Password &rarr;
+        if !loggedInUser.socialOnly
+            .edit-profile__password 
+                a(href="change-password") Change Password 

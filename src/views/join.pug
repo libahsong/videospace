@@ -1,6 +1,8 @@
 extends base
 
 block content 
+    if(errorMessage)
+        span=errorMessage
     form(method="POST")
         input(type="text", name="name", placeholder="Name", required)
         input(type="email", name="email", placeholder="Email", required)
@@ -10,3 +12,6 @@ block content
         input(type="text", name="location", placeholder="Location", required)
         input(type="submit", vlaue="Join")
         include partials/social-login
+    .auth-switch 
+        span Have an Account Already?
+        a(href="/login") Log in &rarr;

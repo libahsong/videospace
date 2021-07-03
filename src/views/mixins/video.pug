@@ -1,8 +1,8 @@
 mixin video(video)
     a(href=`/videos/${video.id}`).video-mixin   
-        video.video-mixin__thumnail(src=video.fileUrl)(style="width:200px;height:150px;")
+        video.video-mixin__thumnail(src="/"+video.fileUrl)(style="width:200px;height:150px;")
         .video-mixin__data 
             sapn.video-mixin__title=video.title
             .video-mixin__meta
-                //- span #{video.owner.name}·
+                span #{video.owner.name}·
                 //- span #{video.meta.views}회
