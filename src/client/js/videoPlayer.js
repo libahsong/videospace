@@ -11,6 +11,7 @@ const totalTimeZone = document.getElementById("totalTime");
 const timeline = document.getElementById("timeline");
 const fullScreenIcon = document.getElementById("fullScreen");
 // const fullScreenIcon = fullScreen.querySelector("i");
+const textarea = document.querySelector("textarea");
 
 let volumeValue = 0.5;
 video.volume = volumeValue;
@@ -167,19 +168,36 @@ const handleExpand = () => {
   }
 };
 
-psBtn.addEventListener("click", handlePlayAndStop);
-video.addEventListener("click", handlePlayAndStop);
-volumeBtn.addEventListener("click", handleSound);
-volumeRange.addEventListener("input", handleVolume);
-video.addEventListener("loadedmetadata", handleLoadedMetaData);
-document.addEventListener("fullscreenchange", handleExpand);
-document.addEventListener("keydown", handleKey);
+const handleEnded = () => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  });
+};
 
+const initKeyEvent = () => {
+  document.addEventListener("keydown", handleKey);
+};
+const revokeKeyEvent = () => {
+  document.removeEventListener("keydown", handleKey);
+};
 // if (video.readyState >= 2) {
 //   handleLoadedMetaData();
 // }
-video.addEventListener("timeupdate", handleTimeUpdate);
-timeline.addEventListener("input", handleTimelineChange);
-fullScreenIcon.addEventListener("click", handleFullScreen);
+if (textarea) {
+  textarea.addEventListener("focusin", revokeKeyEvent);
+  textarea.addEventListener("focusout", initKeyEvent);
+}
+document.addEventListener("keydown", handleKey);
+document.addEventListener("fullscreenchange", handleExpand);
+video.addEventListener("loadedmetadata", handleLoadedMetaData);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
+psBtn.addEventListener("click", handlePlayAndStop);
+video.addEventListener("click", handlePlayAndStop);
+video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("ended", handleEnded);
+volumeBtn.addEventListener("click", handleSound);
+volumeRange.addEventListener("input", handleVolume);
+timeline.addEventListener("input", handleTimelineChange);
+fullScreenIcon.addEventListener("click", handleFullScreen);
