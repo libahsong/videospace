@@ -3,9 +3,9 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const BASE_JS = "./src/client/js/";
 
 const config = {
-  //   devtool: "cheap-module-source-map",
   entry: {
     main: BASE_JS + "main.js",
+    videoPlayer: BASE_JS + "videoPlayer.js",
   },
   plugins: [new MiniCssExtractPlugin({ filename: "css/styles.css" })],
   output: {
