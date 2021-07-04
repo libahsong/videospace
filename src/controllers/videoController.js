@@ -26,7 +26,6 @@ export const watch = async (req, res) => {
       path: "comments",
       populate: { path: "owner", model: "User" },
     });
-  console.log(video.comments[0].owner);
   if (!video) {
     return res.render("404", { pageTitle: "Video not found" });
   }
@@ -115,7 +114,7 @@ export const postEdit = async (req, res) => {
     description,
     hashtags: Video.formatHashtags(hashtags),
   });
-  // req.flash("success", "Changes saved.");
+  req.flash("success", "Changes saved.");
   return res.redirect(`/videos/${id}`);
 };
 
